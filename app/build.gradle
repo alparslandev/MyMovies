@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
+apply from: '../config.gradle'
 
 android {
     compileSdkVersion 30
@@ -10,8 +11,8 @@ android {
         applicationId "com.implementhing.mymovies"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode packages.versionCode
+        versionName packages.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

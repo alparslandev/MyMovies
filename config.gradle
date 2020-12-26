@@ -1,0 +1,9 @@
+ext.packages = [
+        versionCode: 1,
+        versionName: "1.0.0",
+        versionTime: getVersionTime()
+]
+
+static String getVersionTime() {
+    return new Date().format('dd.MM.yyyy HH:mm')
+}
