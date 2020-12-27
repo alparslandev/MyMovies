@@ -10,7 +10,7 @@ android {
     buildToolsVersion builds.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 30
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -35,7 +35,6 @@ dependencies {
 
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
-    implementation "com.google.code.gson:gson:$versions.gson"
 }
 
 applyHilt(this, false)
