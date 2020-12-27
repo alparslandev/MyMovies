@@ -3,6 +3,8 @@ package com.implementhing.data
 import com.google.gson.Gson
 import com.implementhing.common.infrastructure.log.LogBucket
 import com.implementhing.data.core.FlowCallAdapterFactory
+import com.implementhing.data.core.interceptors.CommonQueryParamsInterceptor
+import com.implementhing.data.core.interceptors.HeadersInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,12 +33,14 @@ object DataModule {
         val http = OkHttpClient
             .Builder()
             .addInterceptor(log)
+            .addInterceptor(HeadersInterceptor())
+            .addInterceptor(CommonQueryParamsInterceptor())
             .build()
 
         return Retrofit
             .Builder()
             .client(http)
-            .baseUrl(BuildConfig.API_URL + "3/")
+            .baseUrl(BuildConfig.API_URL + "/3/")
             .addCallAdapterFactory(FlowCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
