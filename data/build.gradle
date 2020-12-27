@@ -12,6 +12,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
+
+        buildConfigField("String", "API_URL", "\" https://developers.themoviedb.org/\"")
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -35,6 +37,8 @@ dependencies {
 
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.loggingInterceptor"
+    implementation "com.squareup.okhttp3:okhttp:$versions.okHttp"
 }
 
 applyHilt(this, false)

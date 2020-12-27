@@ -13,7 +13,6 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
 
-        buildConfigField("String", "API_URL", "\"https://run.mocky.io/v3/\"")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
