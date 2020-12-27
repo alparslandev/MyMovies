@@ -1,0 +1,16 @@
+ext {
+    applyHilt = { project, viewModel ->
+        dependencies {
+            project.pluginManager.apply('kotlin-kapt')
+            project.pluginManager.apply('dagger.hilt.android.plugin')
+
+            implementation "com.google.dagger:hilt-android:$project.versions.hilt"
+            kapt "com.google.dagger:hilt-android-compiler:$project.versions.hilt"
+
+            if (viewModel) {
+                implementation "androidx.hilt:hilt-lifecycle-viewmodel:$project.versions.hiltViewModel"
+                kapt "androidx.hilt:hilt-compiler:$project.versions.hiltViewModel"
+            }
+        }
+    }
+}

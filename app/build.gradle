@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
 }
 
+apply from: '../scripts/index.gradle'
+
 android {
     compileSdkVersion builds.compileSdkVersion
     buildToolsVersion builds.buildToolsVersion
@@ -41,3 +43,5 @@ android {
 dependencies {
     api project(":presentation")
 }
+
+applyHilt(this, false)

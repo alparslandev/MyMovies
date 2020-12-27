@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
 }
 
+apply from: '../scripts/index.gradle'
+
 android {
     compileSdkVersion builds.compileSdkVersion
     buildToolsVersion builds.buildToolsVersion
@@ -35,3 +37,5 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
     implementation "com.google.code.gson:gson:$versions.gson"
 }
+
+applyHilt(this, false)

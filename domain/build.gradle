@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
 }
 
+apply from: '../scripts/index.gradle'
+
 android {
     compileSdkVersion builds.compileSdkVersion
     buildToolsVersion builds.buildToolsVersion
@@ -31,3 +33,5 @@ android {
 dependencies {
     api project(':data')
 }
+
+applyHilt(this, false)

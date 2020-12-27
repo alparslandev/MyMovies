@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
 }
 
-apply from: '../config.gradle'
+apply from: '../scripts/index.gradle'
 
 android {
     compileSdkVersion builds.compileSdkVersion
@@ -47,3 +47,5 @@ dependencies {
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.androidJunit"
 }
+
+applyHilt(this, false)
