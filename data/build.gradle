@@ -13,8 +13,6 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
 
-        buildConfigField("String", "API_URL", "\"https://developers.themoviedb.org\"")
-        buildConfigField("String", "API_KEY", "\"35ef0461fc4557cf1d256d3335ed7545\"")
         consumerProguardFiles "consumer-rules.pro"
     }
 

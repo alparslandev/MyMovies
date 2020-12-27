@@ -2,6 +2,8 @@ package com.implementhing.common.infrastructure
 
 import android.content.Context
 import com.google.gson.Gson
+import com.implementhing.common.config.Configuration
+import com.implementhing.common.config.DefaultConfigurationImpl
 import com.implementhing.common.infrastructure.log.AndroidLogger
 import com.implementhing.common.infrastructure.log.DefaultLogBucket
 import com.implementhing.common.infrastructure.log.LogBucket
@@ -23,6 +25,12 @@ object InfrastructureModule {
     @Singleton
     fun provideGson(): Gson {
         return GsonUtils.gson
+    }
+
+    @Provides
+    @Singleton
+    fun provideConfiguration(): Configuration {
+        return DefaultConfigurationImpl()
     }
 
     @Provides
