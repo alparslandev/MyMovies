@@ -13,6 +13,12 @@ ext.versions = [
         gson              : "2.8.6",
         junit             : "4.13",
         androidJunit      : "1.1.2",
+        timber            : "4.7.1",
+]
+
+ext.builds = [
+        compileSdkVersion: 30,
+        buildToolsVersion: "30.0.2"
 ]
 
 ext.packages = [

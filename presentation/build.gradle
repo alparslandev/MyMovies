@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
@@ -9,13 +9,9 @@ android {
     buildToolsVersion builds.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.implementhing.mymovies"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode packages.versionCode
-        versionName packages.versionName
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -39,5 +35,14 @@ android {
 }
 
 dependencies {
-    api project(":presentation")
+    api project(":domain")
+
+    api "androidx.appcompat:appcompat:$versions.appcompat"
+    api "com.google.android.material:material:$versions.material"
+    api "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+    api "io.coil-kt:coil:$versions.coil"
+
+    api "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
 }
