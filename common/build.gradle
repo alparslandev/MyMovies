@@ -14,7 +14,7 @@ android {
         targetSdkVersion 30
 
         buildConfigField("String", "API_VERSION", "\"/3/\"")
-        buildConfigField("String", "API_URL", "\"https://developers.themoviedb.org\"")
+        buildConfigField("String", "API_URL", "\"https://api.themoviedb.org\"")
         buildConfigField("String", "API_KEY", "\"35ef0461fc4557cf1d256d3335ed7545\"")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
