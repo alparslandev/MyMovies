@@ -30,7 +30,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
         binding.viewModel = viewModel
         viewModel.presenter = this
         movieAdapter = MovieAdapter(mutableListOf()) {
-            // TODO send from here to detail page
+            val intent = Intent(this, MovieDetailsActivity::class.java)
+            intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE, it)
+            startActivity(intent)
         }
         binding.rvMovies.adapter = movieAdapter
     }
