@@ -44,4 +44,4 @@ dependencies {
     api project(":presentation")
 }
 
-applyHilt(this, false)
+applyHilt(this, true)
