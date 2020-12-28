@@ -1,8 +1,10 @@
 package com.implementhing.mymovies.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import com.implementhing.mymovies.R
 import com.implementhing.mymovies.databinding.ActivityMainBinding
+import com.implementhing.mymovies.ui.moviedetail.MovieDetailsActivity
 import com.implementhing.presentation.BaseActivity
 import com.implementhing.presentation.BindingSupport
 import com.implementhing.presentation.ViewModelSupport
@@ -21,7 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
     @Inject
     lateinit var viewModel: MainViewModel
 
-    lateinit var movieAdapter: MovieAdapter
+    private lateinit var movieAdapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +37,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
 
     override fun presentList(movies: MutableList<MovieUIModel>) {
         movieAdapter.addItems(movies)
-    }
-
-    override fun navigateToDetailsPage() {
-        TODO("Not yet implemented")
     }
 }
 

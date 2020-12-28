@@ -47,7 +47,6 @@ class MainViewModel @Inject constructor(
     }
 
     interface Presenter {
-        fun navigateToDetailsPage()
         fun presentList(movies: MutableList<MovieUIModel>)
     }
 }

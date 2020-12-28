@@ -19,6 +19,6 @@ interface ApiService {
 
     @GET("movie/{id}")
     fun getMovieDetailByMovieId(
-        @Path("id") id: String
+        @Path("id") id: Int
     ): Flow<MovieBaseResponse<MovieDetail>>
 }

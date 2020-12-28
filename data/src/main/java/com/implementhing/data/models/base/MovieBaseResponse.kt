@@ -3,6 +3,7 @@ package com.implementhing.data.models.base
 import com.google.gson.annotations.SerializedName
 
 open class MovieBaseResponse<T>(
+    var data: T,
     @SerializedName("adult")
     val adult: Boolean?,
     @SerializedName("backdrop_path")

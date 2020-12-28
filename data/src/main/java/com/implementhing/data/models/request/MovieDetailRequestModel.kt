@@ -1,3 +1,3 @@
 package com.implementhing.data.models.request
 
-data class MovieDetailRequestModel(val id: String)
+data class MovieDetailRequestModel(val id: Int)
