@@ -38,6 +38,7 @@ class MovieAdapter(
             binding.tvTitle.text = item.title
             binding.ivPoster.load(item.imagePath) {
                 placeholder(R.drawable.placeholder)
+                crossfade(true)
             }
         }
     }

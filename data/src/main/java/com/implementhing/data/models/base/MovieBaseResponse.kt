@@ -30,4 +30,9 @@ open class MovieBaseResponse<T>(
     val voteAverage: Double?,
     @SerializedName("vote_count")
     val voteCount: Int?
-)
+) {
+    val fullImagePath: String
+        get() = "https://image.tmdb.org/t/p/w500$posterPath"
+    val fullBackdropPath: String
+        get() = "https://image.tmdb.org/t/p/w500$backdropPath"
+}
