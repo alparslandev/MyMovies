@@ -1,8 +1,6 @@
 package com.implementhing.mymovies.ui.main
 
 import android.os.Bundle
-import com.implementhing.data.models.Movie
-import com.implementhing.data.models.base.MovieBaseResponse
 import com.implementhing.mymovies.R
 import com.implementhing.mymovies.databinding.ActivityMainBinding
 import com.implementhing.presentation.BaseActivity
@@ -23,17 +21,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
     @Inject
     lateinit var viewModel: MainViewModel
 
+    lateinit var movieAdapter: MovieAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.viewModel = viewModel
-        viewModel.searchMovies("Godfather")
+        viewModel.presenter = this
+        movieAdapter = MovieAdapter(mutableListOf()) {
+            // TODO send from here to detail page
+        }
+        binding.rvMovies.adapter = movieAdapter
+    }
+
+    override fun presentList(movies: MutableList<MovieUIModel>) {
+        movieAdapter.addItems(movies)
     }
 
     override fun navigateToDetailsPage() {
-        TODO("Not yet implemented")
-    }
-
-    override fun presentList(results: List<MovieBaseResponse<Movie>>) {
         TODO("Not yet implemented")
     }
 }
