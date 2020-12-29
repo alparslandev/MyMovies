@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @ActivityRetainedScoped
 class MainViewModel @Inject constructor(
-    private val searchUseCase: SearchUseCase,
+    private val searchUseCase: SearchUseCase
 ) : BaseViewModel() {
 
     var query = MutableLiveData<String>()
@@ -38,22 +38,15 @@ class MainViewModel @Inject constructor(
 
     fun searchMovies(query: String) {
         viewModelScope.launch {
-            searchUseCase
-                .invoke(SearchMovieRequestModel(query)).collect {
-                    val movieUIModels = mutableListOf<MovieUIModel>()
-                    it.results?.forEach { movie ->
-                        movieUIModels.add(
-                            MovieUIModel(
-                                id = movie.id!!,
-                                vote = "${movie.voteAverage}",
-                                title = movie.title,
-                                imagePath = movie.fullImagePath
-                            )
-                        )
-                    }
-                    presenter?.presentList(movieUIModels)
-
+            searchUseCase.invoke(SearchMovieRequestModel(query)).collect {
+                val movieUIModels = mutableListOf<MovieUIModel>()
+                it.results?.forEach { movie ->
+                    movieUIModels.add(MovieUIModel(movie.id!!, "${movie.voteAverage}",
+                        movie.title, movie.fullImagePath))
                 }
+                presenter?.presentList(movieUIModels)
+
+            }
         }
     }
 

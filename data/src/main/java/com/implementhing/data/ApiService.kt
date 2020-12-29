@@ -12,6 +12,7 @@ interface ApiService {
     @GET("search/movie")
     fun getSearchMoviesByQuery(
         @Query("query") query: String,
+        @Query("page") page: Int,
         @Query("year") year: Int = 0,
         @Query("include_adult") includeAdult: Boolean = true
     ): Flow<BaseListResponse<Movie>>

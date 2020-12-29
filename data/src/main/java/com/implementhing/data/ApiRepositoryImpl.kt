@@ -15,7 +15,12 @@ class ApiRepositoryImpl constructor(
     override fun getSearchMoviesByQuery(
         request: SearchMovieRequestModel
     ): Flow<BaseListResponse<Movie>> {
-        return apiService.getSearchMoviesByQuery(request.query, request.year, request.includeAdult)
+        return apiService.getSearchMoviesByQuery(
+            request.query,
+            request.page,
+            request.year,
+            request.includeAdult
+        )
     }
 
     override fun getMovieDetailByMovieId(request: MovieDetailRequestModel): Flow<MovieDetail> {
