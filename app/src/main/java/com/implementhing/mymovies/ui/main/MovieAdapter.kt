@@ -24,6 +24,12 @@ class MovieAdapter(
         }
     }
 
+    fun updateItems(moviesToUpdate: MutableList<MovieUIModel>) {
+        items.clear()
+        items.addAll(moviesToUpdate)
+        notifyDataSetChanged()
+    }
+
     fun addItems(moviesToAdd: MutableList<MovieUIModel>) {
         val firstRange = items.size
         items.addAll(moviesToAdd)

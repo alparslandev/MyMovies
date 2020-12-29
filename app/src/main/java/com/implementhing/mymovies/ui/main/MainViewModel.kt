@@ -9,6 +9,7 @@ import com.implementhing.presentation.BaseViewModel
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @ActivityRetainedScoped
@@ -19,9 +20,20 @@ class MainViewModel @Inject constructor(
     var query = MutableLiveData<String>()
     var presenter: Presenter? = null
 
+    private var timer = Timer()
+    private val DELAY: Long = 500
+
+
     fun searchMovies(editable: Editable) {
-        if (editable.length > 2)
-            searchMovies(editable.toString())
+        if (editable.length > 2) {
+            timer.cancel()
+            timer = Timer()
+            timer.schedule(object : TimerTask() {
+                override fun run() {
+                    searchMovies(editable.toString())
+                }
+            }, DELAY)
+        }
     }
 
     fun searchMovies(query: String) {
