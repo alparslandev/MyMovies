@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -21,14 +21,58 @@
             android:layout_height="wrap_content"
             android:background="?colorPrimarySurface"
             android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-            bind:navigationClickListener="@{() -> viewModel.goBack()}"
+            app:navigationIcon="@drawable/ic_arrow_left"
             app:title="@{viewModel.title}"
-            app:navigationIcon="@drawable/ic_arrow_left"/>
+            bind:navigationClickListener="@{() -> viewModel.goBack()}" />
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@={viewModel.overview}"/>
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/space_8">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".25" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_poster"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline"
+                tools:src="@drawable/placeholder"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_vote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_8"
+                android:textColor="?colorSurface"
+                android:background="@drawable/bg_average_vote"
+                android:text="@={viewModel.vote}"
+                app:layout_constraintStart_toStartOf="@id/iv_poster"
+                app:layout_constraintBottom_toBottomOf="@id/iv_poster"
+                tools:text="5.9"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.overview}"
+                android:layout_marginStart="@dimen/space_8"
+                android:maxLines="5"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                app:layout_constraintTop_toBottomOf="@id/rv_genres"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="fdsa"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

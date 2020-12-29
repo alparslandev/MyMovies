@@ -1,6 +1,7 @@
 package com.implementhing.mymovies.ui.moviedetail
 
 import android.os.Bundle
+import coil.load
 import com.implementhing.mymovies.R
 import com.implementhing.mymovies.databinding.ActivityMovieDetailsBinding
 import com.implementhing.mymovies.ui.main.MovieUIModel
@@ -33,8 +34,9 @@ class MovieDetailsActivity : BaseActivity<ActivityMovieDetailsBinding>(),
 
         (intent?.extras?.get(EXTRA_MOVIE) as? MovieUIModel)?.let {
             viewModel.title.set(it.title)
-            viewModel.vote.postValue(it.vote)
+            viewModel.vote.value = it.vote
             viewModel.fetchMovieDetails(it.id)
+            binding.ivPoster.load(it.imagePath)
         }
     }
 
