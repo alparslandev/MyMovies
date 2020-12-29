@@ -3,7 +3,6 @@ package com.implementhing.data
 import com.implementhing.data.models.Movie
 import com.implementhing.data.models.MovieDetail
 import com.implementhing.data.models.base.BaseListResponse
-import com.implementhing.data.models.base.MovieBaseResponse
 import com.implementhing.data.models.request.MovieDetailRequestModel
 import com.implementhing.data.models.request.SearchMovieRequestModel
 import kotlinx.coroutines.flow.Flow
@@ -15,11 +14,11 @@ class ApiRepositoryImpl constructor(
 ) : ApiRepository {
     override fun getSearchMoviesByQuery(
         request: SearchMovieRequestModel
-    ): Flow<BaseListResponse<MovieBaseResponse<Movie>>> {
+    ): Flow<BaseListResponse<Movie>> {
         return apiService.getSearchMoviesByQuery(request.query, request.year, request.includeAdult)
     }
 
-    override fun getMovieDetailByMovieId(request: MovieDetailRequestModel): Flow<MovieBaseResponse<MovieDetail>> {
+    override fun getMovieDetailByMovieId(request: MovieDetailRequestModel): Flow<MovieDetail> {
         return apiService.getMovieDetailByMovieId(request.id)
     }
 }

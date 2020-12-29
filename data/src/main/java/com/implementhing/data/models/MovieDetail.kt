@@ -1,6 +1,7 @@
 package com.implementhing.data.models
 
 import com.google.gson.annotations.SerializedName
+import com.implementhing.data.models.base.MovieBaseResponse
 
 data class MovieDetail(
     @SerializedName("belongs_to_collection")
@@ -27,4 +28,4 @@ data class MovieDetail(
     val status: String?,
     @SerializedName("tagline")
     val tagline: String?,
-)
+): MovieBaseResponse()

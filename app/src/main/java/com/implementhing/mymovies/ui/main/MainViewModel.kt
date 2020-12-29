@@ -29,19 +29,18 @@ class MainViewModel @Inject constructor(
             searchUseCase
                 .invoke(SearchMovieRequestModel(query)).collect {
                     val movieUIModels = mutableListOf<MovieUIModel>()
-                    it.results?.let { movies ->
-                        movies.forEach { movie ->
-                            movieUIModels.add(
-                                MovieUIModel(
-                                    id = movie.id,
-                                    vote = "${movie.voteAverage}",
-                                    title = movie.title,
-                                    imagePath = movie.fullImagePath
-                                )
+                    it.results?.forEach { movie ->
+                        movieUIModels.add(
+                            MovieUIModel(
+                                id = movie.id!!,
+                                vote = "${movie.voteAverage}",
+                                title = movie.title,
+                                imagePath = movie.fullImagePath
                             )
-                        }
-                        presenter?.presentList(movieUIModels)
+                        )
                     }
+                    presenter?.presentList(movieUIModels)
+
                 }
         }
     }
