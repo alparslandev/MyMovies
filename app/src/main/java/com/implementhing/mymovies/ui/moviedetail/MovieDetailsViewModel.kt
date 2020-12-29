@@ -21,6 +21,7 @@ class MovieDetailsViewModel @Inject constructor(
     var overview = ObservableField<String>()
     var title = ObservableField<String>()
     var vote = MutableLiveData<String>()
+    var url = ObservableField<String>()
 
     fun fetchMovieDetails(id: Int) {
         viewModelScope.launch {
@@ -35,6 +36,9 @@ class MovieDetailsViewModel @Inject constructor(
                     genre.name?.let { name ->
                         genres.add(name)
                     }
+                }
+                it.backdropPath?.let { _ ->
+                    url.set(it.fullBackdropPath)
                 }
                 presenter?.presentGenres(genres)
             }
