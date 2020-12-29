@@ -28,6 +28,15 @@ class MovieDetailsViewModel @Inject constructor(
                 it.overview?.let { overviewString ->
                     overview.set(overviewString)
                 }
+
+                val genres = arrayListOf<String>()
+
+                it.genres?.forEach { genre ->
+                    genre.name?.let { name ->
+                        genres.add(name)
+                    }
+                }
+                presenter?.presentGenres(genres)
             }
         }
     }
@@ -38,5 +47,6 @@ class MovieDetailsViewModel @Inject constructor(
 
     interface Presenter {
         fun back()
+        fun presentGenres(genres: List<String>)
     }
 }

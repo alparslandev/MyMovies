@@ -39,6 +39,9 @@ class MovieDetailsActivity : BaseActivity<ActivityMovieDetailsBinding>(),
             binding.ivPoster.load(it.imagePath)
         }
     }
+    override fun presentGenres(genres: List<String>) {
+        binding.rvGenres.adapter = GenreAdapter(genres)
+    }
 
     override fun back() = onBackPressed()
 }
