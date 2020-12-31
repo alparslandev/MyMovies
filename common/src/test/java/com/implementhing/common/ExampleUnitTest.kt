@@ -1,8 +1,10 @@
 package com.implementhing.common
 
+import com.implementhing.common.extensions.Password
+import com.implementhing.common.extensions.TCKN
+import com.implementhing.common.extensions.isValid
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -11,7 +13,14 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun isTCKNValid() {
+        val tckn: TCKN = "66313300282"
+        assertEquals(true, tckn.isValid)
+    }
+
+    @Test
+    fun isPasswordValid() {
+        val password: Password = "123456"
+        assertEquals(true, password.isValid())
     }
 }
