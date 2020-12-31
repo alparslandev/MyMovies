@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.implementhing.data.models.request.SearchMovieRequestModel
 import com.implementhing.domain.SearchUseCase
 import com.implementhing.presentation.BaseViewModel
+import com.implementhing.presentation.PaginationListener
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -18,13 +19,13 @@ class MainViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     var query = MutableLiveData<String>()
+    var oldQuery = ""
     var presenter: Presenter? = null
 
     private var timer = Timer()
     private val DELAY: Long = 500
 
-    private val START_PAGE = 1
-    var page: Int = START_PAGE
+    var page: Int = PaginationListener.PAGE_START
     var totalPages: Int = -1
 
     fun searchMovies(editable: Editable) {
@@ -33,7 +34,7 @@ class MainViewModel @Inject constructor(
             timer = Timer()
             timer.schedule(object : TimerTask() {
                 override fun run() {
-                    page = START_PAGE
+                    page = PaginationListener.PAGE_START
                     searchMovies(editable.toString())
                 }
             }, DELAY)
@@ -41,22 +42,28 @@ class MainViewModel @Inject constructor(
     }
 
     fun searchMovies(query: String) {
-        if (query == this.query.value && page == totalPages) return
+        if (query == this.query.value && page == totalPages) {
+            presenter?.removeLoading()
+            return
+        }
 
         viewModelScope.launch {
             searchUseCase.invoke(SearchMovieRequestModel(query = query, page = page)).collect { response ->
                 val movieUIModels = mutableListOf<MovieUIModel>()
-                page = response.page ?: START_PAGE
+                page = response.page ?: PaginationListener.PAGE_START
                 totalPages = response.totalPages ?: -1
                 response.results?.forEach { movie ->
                     movieUIModels.add(MovieUIModel(movie.id!!, "${movie.voteAverage}",
                         movie.title, movie.fullImagePath))
                 }
-                presenter?.presentList(movieUIModels)
+                if (query != oldQuery) {
+                    oldQuery = query
+                    presenter?.updateMovies(movieUIModels)
+                } else {
+                    presenter?.addMovies(movieUIModels)
+                }
 
-                if (page == totalPages) {
-                    presenter?.removeLoading()
-                } else if (page < totalPages) {
+                if (page < totalPages) {
                     presenter?.addLoading()
                 }
             }
@@ -64,7 +71,8 @@ class MainViewModel @Inject constructor(
     }
 
     interface Presenter {
-        fun presentList(movies: MutableList<MovieUIModel>)
+        fun updateMovies(movies: MutableList<MovieUIModel>)
+        fun addMovies(movies: MutableList<MovieUIModel>)
         fun removeLoading()
         fun addLoading()
     }

@@ -2,11 +2,13 @@ package com.implementhing.mymovies.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
 import com.implementhing.mymovies.R
 import com.implementhing.mymovies.databinding.ActivityMainBinding
 import com.implementhing.mymovies.ui.moviedetail.MovieDetailsActivity
 import com.implementhing.presentation.BaseActivity
 import com.implementhing.presentation.BindingSupport
+import com.implementhing.presentation.PaginationListener
 import com.implementhing.presentation.ViewModelSupport
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -35,10 +37,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
             startActivity(intent)
         }
         binding.rvMovies.adapter = movieAdapter
+        binding.rvMovies.addOnScrollListener(object : PaginationListener(binding.rvMovies.layoutManager as GridLayoutManager) {
+            override fun loadMoreItems() {
+                viewModel.page++
+                viewModel.query.value?.let { viewModel.searchMovies(it) }
+            }
+
+            override val isLastPage: Boolean
+                get() = viewModel.page == viewModel.totalPages
+            override val isLoading: Boolean
+                get() = movieAdapter.isLoaderVisible
+        })
     }
 
-    override fun presentList(movies: MutableList<MovieUIModel>) {
+    override fun updateMovies(movies: MutableList<MovieUIModel>) {
         movieAdapter.updateItems(movies)
+    }
+
+    override fun addMovies(movies: MutableList<MovieUIModel>) {
+        movieAdapter.addItems(movies)
     }
 
     override fun removeLoading() {
