@@ -23,6 +23,9 @@ class MainViewModel @Inject constructor(
     private var timer = Timer()
     private val DELAY: Long = 500
 
+    private val START_PAGE = 1
+    var page: Int = START_PAGE
+    var totalPages: Int = -1
 
     fun searchMovies(editable: Editable) {
         if (editable.length > 2) {
@@ -30,6 +33,7 @@ class MainViewModel @Inject constructor(
             timer = Timer()
             timer.schedule(object : TimerTask() {
                 override fun run() {
+                    page = START_PAGE
                     searchMovies(editable.toString())
                 }
             }, DELAY)
@@ -37,20 +41,31 @@ class MainViewModel @Inject constructor(
     }
 
     fun searchMovies(query: String) {
+        if (query == this.query.value && page == totalPages) return
+
         viewModelScope.launch {
-            searchUseCase.invoke(SearchMovieRequestModel(query)).collect {
+            searchUseCase.invoke(SearchMovieRequestModel(query = query, page = page)).collect { response ->
                 val movieUIModels = mutableListOf<MovieUIModel>()
-                it.results?.forEach { movie ->
+                page = response.page ?: START_PAGE
+                totalPages = response.totalPages ?: -1
+                response.results?.forEach { movie ->
                     movieUIModels.add(MovieUIModel(movie.id!!, "${movie.voteAverage}",
                         movie.title, movie.fullImagePath))
                 }
                 presenter?.presentList(movieUIModels)
 
+                if (page == totalPages) {
+                    presenter?.removeLoading()
+                } else if (page < totalPages) {
+                    presenter?.addLoading()
+                }
             }
         }
     }
 
     interface Presenter {
         fun presentList(movies: MutableList<MovieUIModel>)
+        fun removeLoading()
+        fun addLoading()
     }
 }

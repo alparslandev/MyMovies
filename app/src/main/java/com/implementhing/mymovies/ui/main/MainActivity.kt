@@ -40,5 +40,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
     override fun presentList(movies: MutableList<MovieUIModel>) {
         movieAdapter.updateItems(movies)
     }
+
+    override fun removeLoading() {
+        movieAdapter.removeLoading()
+    }
+
+    override fun addLoading() {
+        movieAdapter.addLoading()
+    }
 }
 
