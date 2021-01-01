@@ -4,18 +4,14 @@ import com.implementhing.common.BuildConfig
 
 class DefaultConfigurationImpl : Configuration {
 
-    override val apiKey = ""
+    override val apiKey = BuildConfig.API_KEY
 
     override fun apiUrl(): String {
         return BuildConfig.API_URL
     }
 
-    override fun imageBaseUrl(): String {
-        return ""
-    }
-
     override fun apiVersion(): String {
-        return ""
+        return BuildConfig.API_VERSION
     }
 
 }
