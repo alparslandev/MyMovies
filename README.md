@@ -1,4 +1,4 @@
-## Yemeksepeti Android Challenge
+## Google Android Challenge
 
 Please read the following instructions carefully and make sure that you fulfill
 all requirements listed.
